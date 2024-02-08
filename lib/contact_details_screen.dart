@@ -14,7 +14,7 @@ class ContactDetailsScreen extends StatelessWidget {
       ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          //mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text('Name: ${contact.name}'),
             Text('Info: ${contact.info}'),

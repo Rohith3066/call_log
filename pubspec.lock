@@ -121,7 +121,7 @@ packages:
     source: hosted
     version: "1.8.3"
   permission_handler:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: permission_handler
       sha256: "45ff3fbcb99040fde55c528d5e3e6ca29171298a85436274d49c6201002087d6"

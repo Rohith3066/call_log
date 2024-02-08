@@ -11,9 +11,10 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  TextEditingController searchController = TextEditingController();
+  TextEditingController searchController =
+      TextEditingController(); //A controller for an editable text field.
   List<Contact> allContacts = [
-    Contact(name: 'John Doe', info: '123-456-7890', callHistory: []),
+    Contact(name: 'Rohith', info: '123-456-7890', callHistory: []),
     Contact(name: 'Jane Smith', info: '987-654-3210', callHistory: []),
     Contact(name: 'Bob Johnson', info: '567-890-1234', callHistory: []),
     Contact(name: 'Alice Williams', info: '456-789-0123', callHistory: []),
@@ -21,7 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
   ];
 
   List<Contact> favoriteContacts = [
-    Contact(name: 'John Doe', info: '123-456-7890', callHistory: []),
+    Contact(name: 'Rohith', info: '123-456-7890', callHistory: []),
     Contact(name: 'Alice Williams', info: '456-789-0123', callHistory: []),
     Contact(name: 'Shyam Vinay', info: '111-222-3333', callHistory: []),
   ];
@@ -52,6 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> requestPermission() async {
+    //The result of an asynchronous computation.
     if (await Permission.phone.request().isGranted) {
       // Permission granted, proceed with the app
     } else {
@@ -64,29 +66,37 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      //Implements the basic Material Design visual layout structure
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 97, 173, 235),
         title: Text('call_log'),
       ),
       body: Column(
         children: [
+          // it takes a list of widgets
           Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(
+                16.0), //The EdgeInsets class specifies offsets in terms of visual edges, left, top, right, and bottom.
             child: TextField(
-              controller: searchController,
+              // it takes a single widget
+              controller:
+                  searchController, //Controller is an object that manages the state of certain user interface elements or widgets
               onChanged: (value) {
+                // when the user initiates a change to the TextField's value: inserted or deleted
                 filterContacts(value);
               },
               decoration: InputDecoration(
                 labelText: 'Search Contacts',
                 prefixIcon: Icon(Icons.search),
                 border: OutlineInputBorder(
+                  //cretaes a round rectangle
                   borderRadius: BorderRadius.circular(20.0),
                 ),
               ),
             ),
           ),
           Expanded(
+            //A widget that expands a child of a Row, Column, or Flex so that the child fills the available space.
             child: currentIndex == 1
                 ? buildCallHistoryList(recentCalls)
                 : buildContactList(displayedContacts),
@@ -139,8 +149,8 @@ class _HomeScreenState extends State<HomeScreen> {
             context: context,
             builder: (BuildContext context) {
               return AlertDialog(
-                title: Text('Enter Phone Number'),
-                content: TextField(
+                title: const Text('Enter Phone Number'),
+                content: const TextField(
                   keyboardType: TextInputType.phone,
                   decoration: InputDecoration(
                     hintText: 'Phone Number',
@@ -155,8 +165,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   TextButton(
                     onPressed: () {
-                      // Handle the phone number input
-                      Navigator.of(context).pop();
+                      Navigator.of(context)
+                          .pop(); // Handle the phone number input
                     },
                     child: Text('Ok'),
                   ),
@@ -201,6 +211,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget buildCallHistoryList(List<CallHistory> calls) {
     return ListView.builder(
+      //To work with lists that contain a large number of items, it’s best to use the ListView.builder constructor.
       itemCount: calls.length,
       itemBuilder: (context, index) {
         return ListTile(
@@ -208,7 +219,9 @@ class _HomeScreenState extends State<HomeScreen> {
           subtitle: Text(
               'Time: ${formatDateTime(calls[index].time)}, Duration: ${calls[index].duration} seconds'),
           onTap: () {
+            //This defines the callback function that will be executed when the user taps on the ListTile.
             Navigator.push(
+              // It pushes a new route onto the navigation stack.
               context,
               MaterialPageRoute(
                 builder: (context) =>
